@@ -160,7 +160,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     String? logFilePath = await SystemAlertWindow.getLogFile;
                     if (logFilePath != null && logFilePath.isNotEmpty) {
-                      Share.shareFiles([logFilePath]);
+                      Share.shareXFiles([XFile(logFilePath)]);
                     } else {
                       print("Path is empty");
                     }

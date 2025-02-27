@@ -53,6 +53,8 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    namespace "in.jvapps.system_alert_window_example"
 }
 
 flutter {

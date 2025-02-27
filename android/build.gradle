@@ -35,6 +35,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    namespace "in.jvapps.system_alert_window"
 }
 
 dependencies {
