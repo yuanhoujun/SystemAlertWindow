@@ -77,7 +77,7 @@ public class WindowServiceNew extends Service implements View.OnTouchListener {
             pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         }
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Overlay window service is running")
+                .setContentTitle("读屏分析进行中...")
                 .setSmallIcon(R.drawable.ic_desktop_windows_black_24dp)
                 .setContentIntent(pendingIntent)
                 .build();
@@ -101,7 +101,7 @@ public class WindowServiceNew extends Service implements View.OnTouchListener {
                 boolean isUpdateWindow = intent.getBooleanExtra(INTENT_EXTRA_IS_UPDATE_WINDOW, false);
                 if (isUpdateWindow && windowManager != null && flutterView != null) {
                     if (ViewCompat.isAttachedToWindow(flutterView)) {
-                         updateWindow(paramsMap);
+                        updateWindow(paramsMap);
                     } else {
                         createWindow(paramsMap);
                     }
@@ -154,17 +154,18 @@ public class WindowServiceNew extends Service implements View.OnTouchListener {
             if (isDisableClicks) {
                 params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
             } else {
-                params.flags =  WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED ;
+                params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
             }
         } else {
             params.type = android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
             if (isDisableClicks) {
-                params.flags =  WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
             } else {
                 params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
             }
         }
-        if(!isFlagFocusable)  params.flags|= android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        if (!isFlagFocusable)
+            params.flags |= android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isDisableClicks) {
             params.alpha = 0.8f;
         }
@@ -235,11 +236,11 @@ public class WindowServiceNew extends Service implements View.OnTouchListener {
         LogUtils.getInstance().i(TAG, "Closing the overlay window");
         try {
             if (windowManager != null) {
-               if(flutterView!=null){
-                   windowManager.removeView(flutterView);
-                   windowManager = null;
-                   flutterView.detachFromFlutterEngine();
-               }
+                if (flutterView != null) {
+                    windowManager.removeView(flutterView);
+                    windowManager = null;
+                    flutterView.detachFromFlutterEngine();
+                }
             }
         } catch (IllegalArgumentException e) {
             LogUtils.getInstance().e(TAG, "view not found");
