@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:system_alert_window/system_alert_window.dart';
 
@@ -55,10 +56,15 @@ class _CustomOverlayState extends State<CustomOverlay> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      Text(update ? "outgoing" : "Incoming", style: TextStyle(fontSize: 10, color: Colors.black45)),
+                      Text(update ? "outgoing" : "Incoming",
+                          style:
+                              TextStyle(fontSize: 10, color: Colors.black45)),
                       Text(
                         "123456",
-                        style: TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -75,7 +81,9 @@ class _CustomOverlayState extends State<CustomOverlay> {
                     width: MediaQuery.of(context).size.width / 2.3,
                     margin: EdgeInsets.only(left: 30),
                     padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30)), color: update ? Colors.grey : Colors.deepOrange),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        color: update ? Colors.grey : Colors.deepOrange),
                     child: Center(
                       child: Text(
                         "Close",
@@ -98,14 +106,21 @@ class _CustomOverlayState extends State<CustomOverlay> {
             style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(Colors.transparent),
             ),
-            onPressed: () {
-              callBackFunction("Action");
+            onPressed: () async {
+          
+
+              compute((a) async {
+                              debugPrint("@@@${Isolate.current.debugName}");
+    callBackFunction("Action");
+              }, null);
             },
             child: Container(
               padding: EdgeInsets.all(12),
               height: (MediaQuery.of(context).size.height) / 3.5,
               width: MediaQuery.of(context).size.width / 1.05,
-              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(5)), color: update ? Colors.grey : Colors.deepOrange),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: update ? Colors.grey : Colors.deepOrange),
               child: Center(
                 child: Text(
                   "Action",
