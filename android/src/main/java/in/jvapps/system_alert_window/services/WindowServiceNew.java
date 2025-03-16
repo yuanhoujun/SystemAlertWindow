@@ -246,6 +246,7 @@ public class WindowServiceNew extends Service implements View.OnTouchListener {
             LogUtils.getInstance().e(TAG, "view not found");
         }
         if (isStopService) {
+            stopForeground(true);
             stopSelf();
         }
     }
